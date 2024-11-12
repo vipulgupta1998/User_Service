@@ -1,0 +1,67 @@
+User Management API Routes Documentation
+This document describes the User Management API routes accessible at the base URL http://localhost:4000/user. The API uses Express routers for modular route handling.
+
+Middleware:
+
+fetchUser (Not currently implemented): This middleware is intended to be used with specific routes to fetch user information from a JWT token.
+Routes:
+
+1. Get User Details (/userDetails):
+
+Method: GET
+Description: Retrieves information about a specific user.
+Request Body:
+id: (required) The ID of the user to retrieve information for.
+Response:
+Success (200): JSON object containing the retrieved user information.
+Error (404): JSON object with message "User not found".
+Error (500): JSON object with message "Error retrieving user data" and the error details.
+2. Get User Books (/userBooks):
+
+Method: GET
+Description: Retrieves a list of books associated with the authenticated user. (Requires Authentication)
+Request Body: None
+Response:
+Success (200): JSON array containing the user's book list.
+Error (500): JSON object with message "Error fetching books" and the error details.
+3. Fetch User ID (/fetchUser): (Commented Out - Functionality in Middleware)
+
+Method: GET
+Description: This route is currently commented out as the functionality is intended to be implemented in the fetchUser middleware. It was supposed to retrieve the user ID from a JWT token.
+Request Body: None
+Response: (Commented Out)
+Success (200): JSON object containing the user ID extracted from the JWT token.
+Error (401): JSON object with message "Please authenticate using a valid token".
+4. Add Book (/addBook):
+
+Method: POST
+Description: Adds a book to the authenticated user's book list. (Requires Authentication)
+Request Body:
+bookId: (required) The ID of the book to add.
+userID: (required) The ID of the user to add the book to.
+Response:
+Success (201): JSON object with message "Book added successfully!".
+Error (404): JSON object with message "User not found".
+Error (500): JSON object with message "Error adding book" and the error details.
+5. Delete Book (/deleteBook):
+
+Method: DELETE
+Description: Deletes a book from the authenticated user's book list. (Requires Authentication)
+Request Body:
+bookId: (required) The ID of the book to delete.
+userID: (required) The ID of the user to delete the book from.
+Response:
+Success (200): JSON object with message "Book deleted successfully!".
+Error (404): JSON object with message "User not found".
+Error (500): JSON object with message "Error deleting book" and the error details.
+Authentication:
+
+Routes requiring authentication are not explicitly marked in this documentation, but they likely involve checking for a valid JWT token in the request header. Refer to the specific API implementation for details on authentication mechanisms.
+
+
+
+
+
+
+
+
