@@ -11,7 +11,8 @@ const JWT_SECRET = process.env.JWT_SECRET;
 router.get("/userDetails",async (req, res) => {
     try {
       const userId = req.body.id;
-      const user = await User.findById(userId);
+      //const user = await User.findById(userId);
+      const user = await User.findById(userId).select('-password');
       if (!user) {
         return res.status(404).json({ message: 'User not found' });
       }
@@ -94,7 +95,7 @@ router.post("/addBook",async(req,res)=>{
         { $addToSet: { BookList: { bookids: bookId } } },
         { new: true } 
     );
-
+  
     if (!user) {
         return res.status(404).json({ message: 'User not found' });
     }
