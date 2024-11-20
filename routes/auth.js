@@ -33,7 +33,17 @@ router.post('/register', async(req, res) => {
     }
     success = true;
     const authtoken = jwt.sign(data,JWT_SECRET);
-    res.json({success,authtoken});
+    const response = await fetch(`http://localhost:3000/api/v1/notification/create`,{
+        method : "POST",
+        headers : {
+           'content-type':'application/json'            
+        },
+        body : JSON.stringify({type : "email",recipient : user.email
+          ,message : "create notification"})
+      });
+      let json = await response.json();
+      console.log(json);
+    res.json({success,authtoken,json});
   } catch (error) {
     console.error(error.message);
     res.status(500).send("some error occured");
@@ -68,7 +78,8 @@ router.post('/login',async(req,res)=>{
          res.status(500).send("some error occured");
        }
 })
-
+//validate the token //
+// architecture diagram
 
 
 /*************************** Request Password Change *******************************/
